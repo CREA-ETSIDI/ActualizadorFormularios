@@ -11,7 +11,7 @@ const opciones = {
 // Item en el que cambian las respuestas dinámicamente
 const itemListIndex = 2;
 // Cantidad de inscripciones antes de que se dé el cambio de opciones
-const cutOffInscripciones = 1;
+const maxInscripciones = 1;
 
 // Copiado y alterado sin remordimientos de https://support.google.com/docs/thread/26659691/automatically-run-a-function-in-google-script-when-a-new-row-is-added-to-google-sheet?hl=en
 function onSubmit(e) {
@@ -26,10 +26,15 @@ function onSubmit(e) {
     lock.waitLock(60 * 1000); // Después de dicho tiempo (ms), emite un error si no ha podido tomar el 'Lock'
 
     // Obtenemos el número de respuestas a partir del cuál hay que cerrar opciones
-    let inscritosByNormalMeans = (form.getResponses()).length;
-    console.info(inscritosByNormalMeans);
-    //let inscritosByNormalMeans = countByResponseGiven(form);
-    if (inscritosByNormalMeans >= 1) {
+    let totalInscripciones = (form.getResponses()).length;
+    console.info("Número de personas inscritas:" + totalInscripciones);
+    //let clientesInscritos = countByResponseGiven(form);
+    if (totalInscripciones >= maxInscripciones) {
+      if (totalInscripciones == maxInscripciones) {
+        GmailApp.sendEmail(Session.getActiveUser().getEmail(), 
+          "Warning for form " + form.getTitle() + '!', 
+          "Number of entries has reached " + maxInscripciones + "!\nYou should check the spreadsheet in case something went wrong..."); 
+      }
       cambiarOpciones(form);
     }
   }
@@ -41,12 +46,13 @@ function onSubmit(e) {
       // Solo era para probar la GmailApp, que si haces un trow puedes configurarlo para que te llegue al correo también
   }
   finally {
+    // Devolvemos el Lock para que el siguiente hilo pueda continuar
     lock.releaseLock();
   }
 }
 
 // Esta función se puede ampliar fácilmente para que contemple más opciones de las que se escoja simultáneamente
-// No me di cuenta de que para este tipo de encuesta con hacer form.getResponses().lenght bastaba hasta después de hacerlo
+// No me di cuenta de que para este tipo de encuesta con hacer (form.getResponses()).length bastaba hasta después de hacerlo
 // Tiene su razón, y es que estaba cogiendo de base un código que lee de varias opciones. Hecho queda.
 function countByResponseGiven(form) {
   let counter = 0;
