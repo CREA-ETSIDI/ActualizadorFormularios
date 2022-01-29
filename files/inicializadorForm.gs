@@ -11,7 +11,7 @@ function initializeForm() {
 
   // Datos básicos
   form.setTitle("Título de ejemplo")
-      .setDescription("Formulario de ejemplo. \n\nMás texto de prueba XD");
+      .setDescription("Formulario de ejemplo. \nUsa el correo institucional porfiplis\nMás texto de prueba XD");
 
   // Identificación del socix
   form.setCollectEmail(true);
@@ -24,7 +24,7 @@ function initializeForm() {
 
   // Pregunta de opción única
   let opts = form.addMultipleChoiceItem()
-    .setTitle('Confirma que deseas inscribirte');
+                 .setTitle('Confirma que quieres inscribirte');
   opts.setChoiceValues([opciones.asistenciaConPlaza]);
   opts.setRequired(true);
 
@@ -35,7 +35,7 @@ function initializeForm() {
       console.info("ID de la hoja relacionada: " + responsesSpreadSheetId);
     }
   }
-  catch (err) { // Si no hay, el error lo muestra este bloque
+  catch (err) { // Si lo hay, el error lo muestra este bloque
     console.error(err)
   }
 }

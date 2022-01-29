@@ -5,9 +5,9 @@
 
 // Enumeración con las distintas opciones que se pueden presentar en la lista para elegir
 const opciones = {
-  asistenciaConPlaza:     'Intentaré asistir a todos los días (¡gratis!)',
-  inscripcionListaEspera: 'Me inscribo en la lista de espera (¡lo siento, se agotaron las plazas!)'
-}
+  asistenciaConPlaza:     'Deseo asistir a todos los días (¡gratis!)',
+  inscripcionListaEspera: 'Deseo inscribirme en la lista de espera'
+};
 // Item en el que cambian las respuestas dinámicamente
 const itemListIndex = 2;
 // Cantidad de inscripciones antes de que se dé el cambio de opciones
@@ -75,7 +75,8 @@ function countByResponseGiven(form) {
 function cambiarOpciones(form) {
   form = FormApp.getActiveForm();
   let itemToChange = (form.getItems()[itemListIndex]).asMultipleChoiceItem(); // Cuidaito aquí que hay que poner el tipo que necesita la interfaz
-  itemToChange.setChoiceValues([opciones.inscripcionListaEspera]);
+  itemToChange.setChoiceValues([opciones.inscripcionListaEspera])
+              .setTitle("Lo sentimos, se han agotado las plazas");
   console.info("Las opciones han sido cambiadas con éxito");
   return;
 }
