@@ -15,4 +15,4 @@ const opciones = [ '10.30 a 11.30',
 const itemListIndex = 2;
 // Cantidad de inscripciones antes de que se dé el cambio de opciones
 //const maxInscripciones = 24;
-const maxInccripcionesRespuesta = 4;
+const maxInccripcionesRespuesta = [4, 4, 4, 4, 4, 4]; // Me veo teniéndolo que cambiar a mano

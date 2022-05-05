@@ -57,7 +57,7 @@ function countByResponseGiven(form) {
 function cambiarOpciones(form, contadorSupremo) {
   let opcionesNuevas = [];
   for(let idContador in contadorSupremo) {
-    if( contadorSupremo[idContador] < maxInccripcionesRespuesta ) { // No poner <= pq cuando se haya respondido la n-máxima, debe cambiarse
+    if( contadorSupremo[idContador] < maxInccripcionesRespuesta[idContador] ) { // No poner <= pq cuando se haya respondido la n-máxima, debe cambiarse
       opcionesNuevas.push(opciones[idContador]);
     }
   }
